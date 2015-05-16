@@ -18,7 +18,7 @@ class Command(BaseCommand):
     help = """Benchmarks the caches."""
 
     def handle(self, *aliases, **kwargs):
-        results = {}
+        results = OrderedDict()
         for alias in settings.CACHES:
 
             # The alias 'default' isn't very explanatory, so ignore it
