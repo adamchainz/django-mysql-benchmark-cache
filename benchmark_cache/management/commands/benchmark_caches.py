@@ -17,15 +17,20 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         results = {}
         for alias in settings.CACHES:
-            cache = caches[alias]
-            name = cache.__class__.__name__
 
-            self.stdout.write("Benchmarking {}".format(name))
-            results[name] = self.do_benchmark(cache)
+            # The alias 'default' isn't very explanatory, so ignore it
+            if alias == 'default':
+                continue
+
+            results.update(self.do_benchmark(alias))
 
         self.output_results(results)
 
-    def do_benchmark(self, cache):
+    def do_benchmark(self, alias):
+        cache = caches[alias]
+        name = cache.__class__.__name__
+        self.stdout.write("Benchmarking {}".format(name))
+
         cache.clear()
 
         start = time.time()
@@ -54,7 +59,7 @@ class Command(BaseCommand):
 
         end = time.time()
 
-        return (end - start)
+        return {name: (end - start)}
 
     def random_key(self):
         return "Key{}".format(randint(1, 500))

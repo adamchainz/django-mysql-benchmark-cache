@@ -94,6 +94,11 @@ DATABASES = {
 
 CACHES = {
     'default': {
+        # To make output easier to read, 'default' is ignored
+        'BACKEND': 'django_mysql.cache.MySQLCache',
+        'LOCATION': 'NOT USED'
+    },
+    'MySQLCache': {
         'BACKEND': 'django_mysql.cache.MySQLCache',
         'LOCATION': 'MySQLCache_table'
     },
