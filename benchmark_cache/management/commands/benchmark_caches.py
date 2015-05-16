@@ -28,8 +28,7 @@ class Command(BaseCommand):
 
     def do_benchmark(self, alias):
         cache = caches[alias]
-        name = cache.__class__.__name__
-        self.stdout.write("Benchmarking {}".format(name))
+        self.stdout.write("Benchmarking {}".format(alias))
 
         cache.clear()
 
@@ -59,7 +58,7 @@ class Command(BaseCommand):
 
         end = time.time()
 
-        return {name: (end - start)}
+        return {alias: (end - start)}
 
     def random_key(self):
         return "Key{}".format(randint(1, 500))

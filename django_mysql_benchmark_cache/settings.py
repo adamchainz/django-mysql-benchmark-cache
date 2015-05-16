@@ -98,9 +98,13 @@ CACHES = {
         'BACKEND': 'django_mysql.cache.MySQLCache',
         'LOCATION': 'NOT USED'
     },
-    'MySQLCache': {
+    'MySQLCache_Innodb': {
         'BACKEND': 'django_mysql.cache.MySQLCache',
-        'LOCATION': 'MySQLCache_table'
+        'LOCATION': 'MySQLCache_Innodb_table'
+    },
+    'MySQLCache_MyISAM': {
+        'BACKEND': 'django_mysql.cache.MySQLCache',
+        'LOCATION': 'MySQLCache_MyISAM_table'
     },
     'DatabaseCache': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
