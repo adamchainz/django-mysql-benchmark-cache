@@ -70,6 +70,28 @@ class Command(BaseCommand):
             ])
         timings['get_many'] = time.time() - start
 
+        # delete
+        start = time.time()
+        for i in six.moves.range(1000):
+            cache.delete(self.random_key())
+        timings['delete'] = time.time() - start
+
+        # delete_many
+        start = time.time()
+        for i in six.moves.range(1000):
+            cache.delete_many([
+                self.random_key()
+                for x in six.moves.range(40)
+            ])
+        timings['delete'] = time.time() - start
+
+        # incr
+        cache.set('incr_key', 1)
+        start = time.time()
+        for i in six.moves.range(1000):
+            cache.incr('incr_key')
+        timings['incr'] = time.time() - start
+
         return {alias: timings}
 
     def random_key(self):
